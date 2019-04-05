@@ -1,0 +1,76 @@
+CREATE SCHEMA IF NOT EXISTS `grizzly_store` DEFAULT CHARACTER SET latin1 ;
+
+USE `grizzly_store` ;
+
+
+
+-- -----------------------------------------------------
+-- Table `grizzly_store`.`userprofile`
+-- -----------------------------------------------------
+
+CREATE TABLE IF NOT EXISTS `grizzly_store`.`userprofile` (
+  `user_id` INT(11) NOT NULL,
+  `user_name` TEXT NOT NULL,
+  `user_designation` TEXT NOT NULL,
+  `user_office` TEXT NOT NULL,
+  `user_image` VARCHAR(50) NULL DEFAULT NULL,
+  PRIMARY KEY (`user_id`))
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = latin1;
+
+
+
+
+-- -----------------------------------------------------
+-- Table `grizzly_store`.`loginstore`
+-- -----------------------------------------------------
+
+CREATE TABLE IF NOT EXISTS `grizzly_store`.`loginstore` (
+  `username` VARCHAR(15) NOT NULL,
+  `password` TEXT NOT NULL,
+  `user_id` INT(11) NOT NULL,
+  `failedattempt` INT(11) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`username`),
+  INDEX `user_id_idx` (`user_id` ASC),
+  CONSTRAINT `user_id`
+    FOREIGN KEY (`user_id`)
+    REFERENCES `grizzly_store`.`userprofile` (`user_id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = latin1;
+
+
+
+
+-- -----------------------------------------------------
+-- Table `grizzly_store`.`product`
+-- -----------------------------------------------------
+
+CREATE TABLE IF NOT EXISTS `grizzly_store`.`product` (
+  `Product_id` INT(11) NOT NULL AUTO_INCREMENT,
+  `product_name` TEXT NOT NULL,
+  `product_brand` TEXT NOT NULL,
+  `product_category` TEXT NOT NULL,
+  `product_description` TEXT NOT NULL,
+  `product_price` DOUBLE NOT NULL,
+  `product_rating` DOUBLE NOT NULL DEFAULT '2.5',
+  `product_availability` INT(11) NOT NULL DEFAULT '1',
+  `product_image` TEXT NOT NULL,
+  PRIMARY KEY (`Product_id`))
+ENGINE = InnoDB
+AUTO_INCREMENT = 24
+DEFAULT CHARACTER SET = latin1;
+
+
+
+
+-- -----------------------------------------------------
+-- Table `grizzly_store`.`user`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `grizzly_store`.`user` (
+  `id` INT(11) NOT NULL,
+  `name` VARCHAR(255) NULL DEFAULT NULL,
+  PRIMARY KEY (`id`))
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = latin1;
